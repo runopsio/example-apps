@@ -10,9 +10,9 @@ This examples demonstrate how to setup a runops agent in a standalone VM allowin
 
 ## Requirements
 
-- [Vagrant Box](https://www.vagrantup.com/)
+- [Vagrant](https://www.vagrantup.com/)
 
-## Setup
+## Setup & Run
 
 1. Open an terminal and execute the steps below
 
