@@ -11,6 +11,9 @@ This examples demonstrate how to setup a runops agent in a standalone VM allowin
 ## Requirements
 
 - [Vagrant](https://www.vagrantup.com/)
+- [runops cli](https://www.npmjs.com/package/runops)
+- A user with permission to create **targets** and **tasks** in an organization on runops.
+- An agent token with permission to run tasks
 
 ## Setup & Run
 
