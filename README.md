@@ -6,3 +6,4 @@
 This repository contains examples of setuping [runops agent](https://github.com/runopsio/agent) in several environments:
 
 - [PHP with Laravel and Tinker](./laravel)
+- [Local Agent Setup](./local)
