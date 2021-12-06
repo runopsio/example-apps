@@ -14,7 +14,7 @@ This examples demonstrate how to setup a runops agent on a Kubernetes cluster an
 ```sh
 # deploy the agent inside the runops namespace
 export AGENT_TOKEN= #-- change-me --#
-export ENV_CONFIG=$(cat - <<EOF
+export ENV_CONFIG=`cat - <<EOF
 {
   "MYSQL_HOST": "mysql",
   "MYSQL_USER": "root",
@@ -22,7 +22,7 @@ export ENV_CONFIG=$(cat - <<EOF
   "MYSQL_PORT": "3306",
   "MYSQL_DB": "testdb"
 }
-EOF)
+EOF`
 curl -sL https://raw.githubusercontent.com/runopsio/agent/main/setup/k8s.sh | bash
 
 # deploy a mysql instance inside the runops namespace 
