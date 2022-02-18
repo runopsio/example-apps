@@ -35,6 +35,8 @@ kubectl apply -n demo-sm -f ../kubernetes/mysql-deploy.yaml
 
 4. Deploy an agent
 
+> Make sure to add the proper AWS credentials in the parameters below
+
 ```sh
 LATEST_RELEASE=$(curl -s https://api.github.com/repos/runopsio/agent/releases/latest |jq .assets[1].browser_download_url -r)
 # WARNING: If you have agents running in production, this operation will break then!
@@ -110,4 +112,3 @@ So you can CREATE, INSERT and SELECT but not delete records.
 # get the secret id in the logs of the task
 aws secretsmanager describe-secret --secret-id <secret-id>
 ```
-
