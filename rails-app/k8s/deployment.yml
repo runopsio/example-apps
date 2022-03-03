@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api
+  name: bandapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - env:
+        - name: DOPPLER_TOKEN
+          # change for a valid service token
+          value: dp.st.dev.ShvhbRZCg2z4ANe1OG9ZItS5FLcKx8M55PwT8E7Q0Lt
+        image: runops/bandapi
+        imagePullPolicy: Always
+        resources:
+          requests:
+            memory: "1024Mi"
+            cpu: "500m"
+        name: api
