@@ -11,7 +11,7 @@ This example demonstrate how to run a simple ruby on rails API application on Ku
 
 ```sh
 rbenv local 3.0.3
-rails new . --api && cd ruby-test
+rails new . --api
 rails g scaffold Band name:string
 cat - > Dockerfile <<EOF
 FROM ruby:3.0.3
@@ -39,12 +39,11 @@ EOF
 ## Testing locally
 
 ```sh
-docker build -t ruby-test .
-docker run --rm -it -p 3000:3000 --name ruby-test .
-docker exec -it app rails db:migrate
-docker exec -it app rails runner 'Band.create(name: "AC/DC")'
-docker exec -it app rails runner 'Band.create(name: "The Beatles")'
-docker exec -it app rails runner 'Band.create(name: "The Beatles")'
+docker build -t bandapi .
+docker run --rm -it -p 3000:3000 --name bandapi bandapi
+docker exec -it bandapi rails db:migrate
+docker exec -it bandapi rails runner 'Band.create(name: "AC/DC")'
+docker exec -it bandapi rails runner 'Band.create(name: "The Beatles")'
 curl -s http://localhost:3000/bands |jq .
 ```
 
