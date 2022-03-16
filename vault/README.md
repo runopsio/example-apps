@@ -70,13 +70,12 @@ vault kv put secret/mysqldev/credentials \
 ## Deploy Runops Agent
 
 ```sh
-# TODO: change to tarball
-# TODO: change tags to test
-# TODO: remove image option
+LATEST_RELEASE=$(curl -s https://api.github.com/repos/runopsio/agent/releases/latest |jq .assets[1].browser_download_url -r)
+# WARNING: If you have agents running in production, this operation will break then!
+AGENT_TOKEN=$(runops agents create-token -f)
 helm upgrade --install agent ./ \
-  --set image.tag=latest \
-  --set config.tags=gcp \
-  --set config.token=f303e17a3268ecbf4f0c010da4ecc47298d254b542fe1103 \
+  --set config.tags=test \
+  --set config.token=$AGENT_TOKEN \
   --set config.vault.addr=http://server.vault-dev:8200 \
   --set config.vault.role=mysqldev \
   --namespace runops
@@ -86,7 +85,7 @@ runops targets create \
   --type mysql \
   --secret_provider hashicorp/kv \
   --secret_path secret/data/mysqldev/credentials \
-  --tags gcp
+  --tags test
 
 runops tasks create -t mysql-vault -s 'SELECT NOW()'
 ```
@@ -96,3 +95,4 @@ runops tasks create -t mysql-vault -s 'SELECT NOW()'
 - https://www.vaultproject.io/docs/platform/k8s
 - https://learn.hashicorp.com/tutorials/vault/static-secrets
 - https://www.vaultproject.io/docs/auth/kubernetes
+
