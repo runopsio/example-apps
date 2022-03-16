@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: vault-dev
+  name: vault
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vault-dev
+  template:
+    metadata:
+      labels:
+        app: vault-dev
+    spec:
+      containers:
+      - env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: VAULT_DEV_ROOT_TOKEN_ID
+          value: vault-root-token
+        - name: VAULT_DEV_LISTEN_ADDRESS
+          value: '0.0.0.0:8200'
+        - name: VAULT_ADDR
+          value: "http://$(POD_IP):8200"
+        image: hashicorp/vault:1.9.3
+        imagePullPolicy: IfNotPresent
+        name: vault-dev
+        ports:
+        - containerPort: 8200
+          name: http
+          protocol: TCP
+        securityContext:
+          capabilities:
+            add:
+            - IPC_LOCK
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server
+spec:
+  ports:
+  - port: 8200
+  selector:
+    app: vault-dev
+  clusterIP: None
+
