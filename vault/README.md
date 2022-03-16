@@ -73,7 +73,7 @@ vault kv put secret/mysqldev/credentials \
 LATEST_RELEASE=$(curl -s https://api.github.com/repos/runopsio/agent/releases/latest |jq .assets[1].browser_download_url -r)
 # WARNING: If you have agents running in production, this operation will break then!
 AGENT_TOKEN=$(runops agents create-token -f)
-helm upgrade --install agent ./ \
+helm upgrade --install agent $LATEST_RELEASE \
   --set config.tags=test \
   --set config.token=$AGENT_TOKEN \
   --set config.vault.addr=http://server.vault-dev:8200 \
